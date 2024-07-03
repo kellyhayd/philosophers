@@ -398,5 +398,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 build/src/philo.o
-build/src/philo.o
+build/*
 philo
