@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:44:55 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/04 11:27:56 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:45:22 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,37 +41,39 @@ void	config_init(t_config *start, char **argv)
 		start->must_eat_times = convert_nbr(argv[5]);
 }
 
-void	*run_philo(void)
+void	*philo_routine(void)
 {
-	
+
+}
+
+void	init_threads(t_config *config, t_philo *philos)
+{
+
 }
 
 int	main(int argc, char **argv)
 {
-	int	i;
+	int			i;
 	t_config	config;
+	t_philo		philos;
 	pthread_t	*thread;
-	
+
 	if (argc < 5 || argc > 6)
-		return (EXIT_FAILURE);
+		return (write(2, "Wrong argument count\n", 22), 1);
 	i = 1;
 	while (i < argc)
 	{
 		if (convert_nbr(argv[i]) < 0)
-			return (EXIT_FAILURE);
+			return (write(2, "Arguments must be positive integers\n", 46), 1);
 		i++;
 	}
 	config_init(&config, argv);
+	// init_threads(&config, &philos);
 	thread = malloc(sizeof(pthread_t) * config.num_philos);
 	i = 0;
 	while (i < argc)
 	{
-		pthread_create(thread[i], NULL, run_philo, &config);
-		i++;
-	}
-	i = 0;
-	while(i < argc)
-	{
+		pthread_create(thread[i], NULL, philo_routine, &config);
 		pthread_join(thread[i], NULL);
 		i++;
 	}
