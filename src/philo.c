@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:44:55 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/03 20:21:51 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/03 21:35:07 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,16 @@ void	config_init(t_config *start, char **argv)
 		start->must_eat_times = convert_nbr(argv[5]);
 }
 
+void	*run_philo(void)
+{
+	
+}
+
 int	main(int argc, char **argv)
 {
 	int	i;
-	t_config	start;
+	t_config	config;
+	pthread_t	*thread;
 	
 	if (argc < 5 || argc > 6)
 		return (EXIT_FAILURE);
@@ -55,8 +61,19 @@ int	main(int argc, char **argv)
 			return (EXIT_FAILURE);
 		i++;
 	}
-	config_init(&start, argv);
-	
-
+	config_init(&config, argv);
+	thread = malloc(sizeof(pthread_t) * config.num_philos);
+	i = 1;
+	while (i < argc)
+	{
+		pthread_create(thread[i], NULL, run_philo, &config);
+		i++;
+	}
+	i = 1;
+	while(i < argc)
+	{
+		pthread_join(thread[i], NULL);
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }

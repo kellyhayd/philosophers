@@ -24,7 +24,9 @@ OBJ			= $(SRC:%.c=$(BUILD_DIR)%.o)
 
 # -------------------------------- 
 
-CC		:= cc -Wall -Wextra -Werror -g3
+CC		:= cc
+CFLAGS	:= -Wall -Wextra -Werror -g3
+LDLIBS	:= -lpthread
 MKDIR	:= mkdir -p
 
 define create_dir
@@ -34,7 +36,7 @@ endef
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		$(CC) $(OBJ) -o $@
+		$(CC) $(CFLAGS) $(LDLIBS) $(OBJ) -o $@
 
 $(BUILD_DIR)%.o: %.c
 		$(call create_dir)
