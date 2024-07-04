@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:27:58 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/03 20:15:17 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:32:07 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ typedef struct	s_config
 	int	must_eat_times;
 	
 }	t_config;
+
+typedef struct s_philo
+{
+	int			id;
+	t_config	*philo;
+}	t_philo;
 
 
 #endif

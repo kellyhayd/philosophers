@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:44:55 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/03 21:35:07 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:27:56 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ int	main(int argc, char **argv)
 	}
 	config_init(&config, argv);
 	thread = malloc(sizeof(pthread_t) * config.num_philos);
-	i = 1;
+	i = 0;
 	while (i < argc)
 	{
 		pthread_create(thread[i], NULL, run_philo, &config);
 		i++;
 	}
-	i = 1;
+	i = 0;
 	while(i < argc)
 	{
 		pthread_join(thread[i], NULL);
