@@ -23,7 +23,8 @@ SRC_PATH	= src/
 SRC			= $(addprefix $(SRC_PATH), \
 			philo.c \
 			utils.c \
-			init.c)
+			init.c \
+			actions.c)
 OBJ			= $(SRC:%.c=$(BUILD_DIR)%.o)
 
 # -------------------------------- 

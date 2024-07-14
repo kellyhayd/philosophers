@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:27:58 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/14 13:53:15 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/14 17:03:46 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,29 @@ typedef struct s_philo
 	pthread_mutex_t	*l_fork;
 }	t_philo;
 
-void	*philo_routine(void*);
+//=========================================== Actions
+
+void	taken_fork(t_philo *philo);
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
+void	died(t_philo *philo);
+
+//=========================================== Threads
+
+void	*philo_routine(void *args);
+void	start_threads(t_philo *philos, t_config *config);
 
 //=========================================== Init
 
 void	init_config(t_config *config, char **argv);
 void	init_philo(t_philo *philos, t_config *config, pthread_mutex_t *forks);
-void	start_threads(t_philo *philos, t_config *config);
+void	init_fork_mutex(t_config *config, pthread_mutex_t *forks);
 
 //=========================================== Utils
 
 size_t	get_current_time(void);
 int		convert_nbr(char *str);
+int		get_dead_flag(t_philo *philo);
 
 #endif
-

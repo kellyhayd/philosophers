@@ -6,44 +6,33 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:44:55 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/14 14:27:36 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/14 17:04:56 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	thinking(t_philo *philo)
+int	get_dead_flag(t_philo *philo)
 {
-	size_t	time_now;
-	
-	time_now = get_current_time() - philo->config->init_time;
-	printf("%u %d is thinking\n", time_now, philo->id);
+	int	is_dead;
+
+	pthread_mutex_lock(&philo->config->dead_lock);
+	if (philo->config->dead_flag == 1)
+		is_dead = 1;
+	else
+		is_dead = 0;
+	pthread_mutex_unlock(&philo->config->dead_lock);
+	return (is_dead);
 }
 
-void	sleeping(t_philo *philo)
+int	dead_loop(t_philo *philo)
 {
-	size_t	time_now;
-	
-	time_now = get_current_time() - philo->config->init_time;
-	printf("%u %d is sleeping\n", time_now, philo->id);
-	usleep(philo->config->to_sleep_ms * 1000);
-}
-
-void	eating(t_philo *philo)
-{
-	size_t	time_now;
-	
-	time_now = get_current_time() - philo->config->init_time;
-	printf("%u %d is eating\n", time_now, philo->id);
-	usleep(philo->config->to_eat_ms * 1000);
-}
-
-void	print_taken_fork(t_philo *philo)
-{
-	size_t	time_now;
-	
-	time_now = get_current_time() - philo->config->init_time;
-	printf("%u %d has taken a fork\n", time_now, philo->id);
+	pthread_mutex_lock(&philo->config->dead_lock);
+	if ((get_current_time() - philo->last_meal) >= philo->config->to_die_ms
+		|| philo->config->dead_flag == 1)
+		return (pthread_mutex_unlock(&philo->config->dead_lock), 1);
+	pthread_mutex_unlock(&philo->config->dead_lock);
+	return (0);
 }
 
 void	*philo_routine(void *args)
@@ -51,20 +40,19 @@ void	*philo_routine(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	pthread_mutex_lock(philo->l_fork);
-	print_taken_fork(philo);
-	pthread_mutex_lock(philo->r_fork);
-	print_taken_fork(philo);
-	eating(philo);
-	pthread_mutex_unlock(philo->l_fork);
-	pthread_mutex_unlock(philo->r_fork);
-	sleeping(philo);
-	thinking(philo);
+	while (!dead_loop(philo))
+	{
+		eating(philo);
+		sleeping(philo);
+		thinking(philo);
+	}
+	died(philo);
 }
+
 void	start_threads(t_philo *philos, t_config *config)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < config->num_philos)
 	{
@@ -100,12 +88,7 @@ int	main(int argc, char **argv)
 	philo = malloc(sizeof(t_philo) * config.num_philos);
 	forks = malloc(sizeof(pthread_mutex_t) * config.num_philos);
 	init_philo(philo, &config, forks);
-	i = 0;
-	while (i < config.num_philos)
-	{
-		pthread_mutex_init(&forks[i], NULL);
-		i++;
-	}
+	init_fork_mutex(&config, forks);
 	start_threads(philo, &config);
 	return (EXIT_SUCCESS);
 }
