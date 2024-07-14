@@ -19,7 +19,10 @@ NAME			= philo
 
 INCLUDE		:= -Iinclude/
 BUILD_DIR	:= build/
-SRC			= src/philo.c
+SRC_PATH	= src/
+SRC			= $(addprefix $(SRC_PATH), \
+			philo.c \
+			utils.c)
 OBJ			= $(SRC:%.c=$(BUILD_DIR)%.o)
 
 # -------------------------------- 
