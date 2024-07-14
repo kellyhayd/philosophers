@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:27:58 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/13 22:59:25 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:53:15 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				meals_eaten;
+	size_t			last_meal;
 	t_config		*config;
 	pthread_t		thread;
 	pthread_mutex_t	*r_fork;
@@ -59,7 +60,7 @@ void	*philo_routine(void*);
 
 void	init_config(t_config *config, char **argv);
 void	init_philo(t_philo *philos, t_config *config, pthread_mutex_t *forks);
-void	init_threads(t_philo *philos, t_config *config);
+void	start_threads(t_philo *philos, t_config *config);
 
 //=========================================== Utils
 
