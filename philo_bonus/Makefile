@@ -10,7 +10,7 @@ RESET	= \033[0m
 
 # -------------------------------- Basic
 
-NAME			= philo
+NAME			= philo_bonus
 .DEFAULT_GOAL	:= all
 .PHONY: all clean fclean re
 .SILENT:

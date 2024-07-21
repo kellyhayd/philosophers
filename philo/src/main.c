@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:16:35 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 17:22:16 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:36:24 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ int	main(int argc, char **argv)
 	init_fork_mutex(&config);
 	start_threads(philo, &config);
 	destroy_all_mutex(philo);
+	free(philo);
+	free(config.forks);
 	return (EXIT_SUCCESS);
 }

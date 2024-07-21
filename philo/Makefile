@@ -32,7 +32,7 @@ OBJ			= $(SRC:%.c=$(BUILD_DIR)%.o)
 # -------------------------------- 
 
 CC		:= cc
-CFLAGS	:= -Wall -Wextra -Werror -g3
+CFLAGS	:= -Wall -Wextra -Werror -g3 -fsanitize=address
 LDLIBS	:= -lpthread
 MKDIR	:= mkdir -p
 
