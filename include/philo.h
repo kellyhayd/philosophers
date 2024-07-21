@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:27:58 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 14:21:17 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:16:07 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	died(t_philo *philo);
 void	*philo_routine(void *args);
 void	start_threads(t_philo *philos, t_config *config);
 void	destroy_all_mutex(t_philo *philos);
+int		dead_loop(t_philo *philo);
+void	*monitor_routine(void *args);
 
 //=========================================== Init
 
@@ -81,10 +83,6 @@ void	init_fork_mutex(t_config *config);
 
 size_t	get_current_time(void);
 int		convert_nbr(char *str);
-int		get_dead_flag(t_philo *philo);
 void	print_message(t_philo *philo, char *str, int id);
-
-int		dead_loop(t_philo *philo);
-void	*monitor_routine(void *args);
 
 #endif

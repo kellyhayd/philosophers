@@ -6,24 +6,11 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:44:55 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 16:17:50 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:17:02 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	get_dead_flag(t_philo *philo)
-{
-	int	is_dead;
-
-	pthread_mutex_lock(&philo->config->dead_lock);
-	if (philo->config->dead_flag == 1)
-		is_dead = 1;
-	else
-		is_dead = 0;
-	pthread_mutex_unlock(&philo->config->dead_lock);
-	return (is_dead);
-}
 
 int	dead_loop(t_philo *philo)
 {
@@ -67,7 +54,8 @@ void	start_threads(t_philo *philos, t_config *config)
 	i = 0;
 	while (i < config->num_philos)
 	{
-		if (pthread_create(&philos[i].thread, NULL, philo_routine, &philos[i]) != 0)
+		if (pthread_create(&philos[i].thread, NULL, philo_routine,
+				&philos[i]) != 0)
 			destroy_all_mutex(philos);
 		i++;
 	}
@@ -80,31 +68,4 @@ void	start_threads(t_philo *philos, t_config *config)
 			destroy_all_mutex(philos);
 		i++;
 	}
-}
-
-int	main(int argc, char **argv)
-{
-	int				i;
-	t_config		config;
-	t_philo			*philo;
-	pthread_t		*thread;
-	pthread_mutex_t	*forks;
-
-	if (argc < 5 || argc > 6)
-		return (write(2, "Wrong argument count\n", 22), 1);
-	i = 1;
-	while (i < argc)
-	{
-		if (convert_nbr(argv[i]) < 0)
-			return (EXIT_FAILURE);
-		i++;
-	}
-	init_config(&config, argv);
-	philo = malloc(sizeof(t_philo) * config.num_philos);
-	config.forks = malloc(sizeof(pthread_mutex_t) * config.num_philos);
-	init_philo(philo, &config);
-	init_fork_mutex(&config);
-	start_threads(philo, &config);
-	destroy_all_mutex(philo);
-	return (EXIT_SUCCESS);
 }

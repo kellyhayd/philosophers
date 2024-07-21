@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 12:31:39 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 16:35:13 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:09:57 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	check_death(t_philo *philos, t_config *config)
 
 void	*monitor_routine(void *args)
 {
-	t_philo	*philos;
+	t_philo		*philos;
 	t_config	*config;
 
 	philos = (t_philo *)args;

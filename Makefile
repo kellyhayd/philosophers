@@ -21,11 +21,12 @@ INCLUDE		:= -Iinclude/
 BUILD_DIR	:= build/
 SRC_PATH	= src/
 SRC			= $(addprefix $(SRC_PATH), \
-			philo.c \
-			utils.c \
+			main.c \
 			init.c \
+			threads.c \
 			actions.c \
-			monitor.c)
+			monitor.c \
+			utils.c)
 OBJ			= $(SRC:%.c=$(BUILD_DIR)%.o)
 
 # -------------------------------- 
