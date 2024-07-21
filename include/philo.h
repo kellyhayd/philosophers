@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:27:58 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/14 17:03:46 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/21 14:21:17 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ typedef struct s_config
 	size_t			init_time;
 	int				dead_flag;
 	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	write_lock;
+	pthread_mutex_t	meals_lock;
+	pthread_mutex_t	*forks;
 }	t_config;
 
 typedef struct s_philo
@@ -66,17 +69,22 @@ void	died(t_philo *philo);
 
 void	*philo_routine(void *args);
 void	start_threads(t_philo *philos, t_config *config);
+void	destroy_all_mutex(t_philo *philos);
 
 //=========================================== Init
 
 void	init_config(t_config *config, char **argv);
-void	init_philo(t_philo *philos, t_config *config, pthread_mutex_t *forks);
-void	init_fork_mutex(t_config *config, pthread_mutex_t *forks);
+void	init_philo(t_philo *philos, t_config *config);
+void	init_fork_mutex(t_config *config);
 
 //=========================================== Utils
 
 size_t	get_current_time(void);
 int		convert_nbr(char *str);
 int		get_dead_flag(t_philo *philo);
+void	print_message(t_philo *philo, char *str, int id);
+
+int		dead_loop(t_philo *philo);
+void	*monitor_routine(void *args);
 
 #endif

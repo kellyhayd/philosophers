@@ -24,7 +24,8 @@ SRC			= $(addprefix $(SRC_PATH), \
 			philo.c \
 			utils.c \
 			init.c \
-			actions.c)
+			actions.c \
+			monitor.c)
 OBJ			= $(SRC:%.c=$(BUILD_DIR)%.o)
 
 # -------------------------------- 
