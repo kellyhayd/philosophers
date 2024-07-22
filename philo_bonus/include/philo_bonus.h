@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:57:16 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 18:09:45 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/21 22:32:33 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <semaphore.h>
+# include <signal.h>
+# include <fcntl.h>
 
 typedef struct s_config
 {
@@ -29,14 +31,18 @@ typedef struct s_config
 	int			must_eat_times;
 	size_t		init_time;
 	int			dead_flag;
+	sem_t		*fork;
+	sem_t		*action;
 }	t_config;
 
 typedef struct s_philo
 {
 	int			id;
 	int			meals_eaten;
+	int			pid;
 	size_t		last_meal;
 	t_config	*config;
+	pthread_t	thread;
 }	t_philo;
 
 #endif
