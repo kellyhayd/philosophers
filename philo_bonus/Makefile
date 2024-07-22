@@ -22,11 +22,7 @@ BUILD_DIR	:= build/
 SRC_PATH	= src/
 SRC			= $(addprefix $(SRC_PATH), \
 			main.c \
-			init.c \
-			threads.c \
-			actions.c \
-			monitor.c \
-			utils.c)
+			utils_bonus.c)
 OBJ			= $(SRC:%.c=$(BUILD_DIR)%.o)
 
 # -------------------------------- 

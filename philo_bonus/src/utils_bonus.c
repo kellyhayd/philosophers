@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 23:15:13 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 23:25:20 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/21 23:34:27 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,23 @@ void	print_message(t_philo *philo, char *str, int id)
 	if (!philo->config->dead_flag)
 		printf("%u %d %s\n", time_now, philo->id, str);
 	sem_post(philo->config->action);
+}
+
+int	convert_nbr(char *str)
+{
+	int	nbr;
+	int	i;
+
+	nbr = 0;
+	i = 0;
+	if (str[0] == '-')
+		return (write(2, "Arguments must be positive integers\n", 36), -1);
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (write(2, "Arguments must be integers\n", 27), -1);
+		nbr = (nbr * 10) + (str[i] - '0');
+		i++;
+	}
+	return (nbr);
 }

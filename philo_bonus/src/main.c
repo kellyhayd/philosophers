@@ -6,11 +6,19 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:45:10 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 23:32:23 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/21 23:39:27 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+void	destroy_semaphores(t_config *config)
+{
+	sem_close(config->fork);
+	sem_close(config->action);
+	sem_unlink("philo_forks");
+	sem_unlink("philo_action");
+}
 
 void	eating(t_philo *philo)
 {
@@ -43,7 +51,7 @@ void	actions(t_philo *philo)
 	}
 }
 
-void	check_life(void *args)
+void	*check_life(void *args)
 {
 	t_philo *philo;
 	philo = (t_philo *)args;
@@ -52,11 +60,8 @@ void	check_life(void *args)
 	last_meal = philo->last_meal;
 	if ((get_current_time() - last_meal) >= philo->config->to_die_ms
 		|| philo->config->dead_flag == 1)
-	{
 		philo->config->dead_flag = 1;
-		return (1);
-	}
-	return (0);
+	return (NULL);
 }
 
 void	philo_threads(t_philo *philo, int id)
@@ -66,7 +71,7 @@ void	philo_threads(t_philo *philo, int id)
 	philo[id].last_meal = get_current_time(); 
 	pthread_create(&philo[id].thread, NULL, check_life, &philo);
 	actions(philo);
-	pthread_detach(&philo[id].thread);
+	pthread_detach(philo[id].thread);
 }
 
 void	kill_process(t_philo *philo)
@@ -107,17 +112,11 @@ int	philo_life(t_philo *philo)
 		i++;
 	}
 	kill_process(philo);
-	destroy_sem(philo);
+	destroy_semaphores(philo->config);
 	return (1);
 }
 
-void	destroy_sem(t_config *config)
-{
-	sem_close(config->fork);
-	sem_close(config->action);
-	sem_unlink("philo_forks");
-	sem_unlink("philo_action");
-}
+
 
 int	semaphores_init(t_config *config)
 {

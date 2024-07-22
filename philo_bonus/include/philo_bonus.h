@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:57:16 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 22:32:33 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/21 23:38:35 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <semaphore.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 
 typedef struct s_config
 {
@@ -44,5 +45,9 @@ typedef struct s_philo
 	t_config	*config;
 	pthread_t	thread;
 }	t_philo;
+
+size_t	get_current_time(void);
+void	print_message(t_philo *philo, char *str, int id);
+int		convert_nbr(char *str);
 
 #endif
