@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:57:16 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 23:38:35 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/21 23:52:27 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,13 @@ typedef struct s_philo
 size_t	get_current_time(void);
 void	print_message(t_philo *philo, char *str, int id);
 int		convert_nbr(char *str);
+void	*check_life(void *args);
+void	actions(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	eating(t_philo *philo);
+void	kill_process(t_philo *philo);
+void	create_process(t_philo *philo);
+void	destroy_semaphores(t_config *config);
+void	philo_threads(t_philo *philo, int id);
 
 #endif

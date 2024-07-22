@@ -6,63 +6,11 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:45:10 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 23:39:27 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/21 23:51:59 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-
-void	destroy_semaphores(t_config *config)
-{
-	sem_close(config->fork);
-	sem_close(config->action);
-	sem_unlink("philo_forks");
-	sem_unlink("philo_action");
-}
-
-void	eating(t_philo *philo)
-{
-	sem_wait(philo->config->fork);
-	print_message(philo, "has taken a fork", philo->id);
-	sem_wait(philo->config->fork);
-	print_message(philo, "has taken a fork", philo->id);
-	print_message(philo, "is eating", philo->id);
-	philo->last_meal = get_current_time();
-	usleep(philo->config->to_eat_ms * 1000);
-	sem_post(philo->config->fork);
-	sem_post(philo->config->fork);
-	philo->meals_eaten++;
-}
-
-void	sleeping(t_philo *philo)
-{
-	print_message(philo, "is thinking", philo->id);
-	usleep(philo->config->to_sleep_ms * 1000);
-}
-
-void	actions(t_philo *philo)
-{
-	while (!philo->config->dead_flag
-		&& (philo->meals_eaten < philo->config->must_eat_times))
-	{
-		eating(philo);
-		sleeping(philo);
-		print_message(philo, "is thinking", philo->id);
-	}
-}
-
-void	*check_life(void *args)
-{
-	t_philo *philo;
-	philo = (t_philo *)args;
-	size_t	last_meal;
-
-	last_meal = philo->last_meal;
-	if ((get_current_time() - last_meal) >= philo->config->to_die_ms
-		|| philo->config->dead_flag == 1)
-		philo->config->dead_flag = 1;
-	return (NULL);
-}
 
 void	philo_threads(t_philo *philo, int id)
 {
@@ -72,32 +20,6 @@ void	philo_threads(t_philo *philo, int id)
 	pthread_create(&philo[id].thread, NULL, check_life, &philo);
 	actions(philo);
 	pthread_detach(philo[id].thread);
-}
-
-void	kill_process(t_philo *philo)
-{
-	int	i;
-
-	i = 0;
-	while (i < philo->config->num_philos)
-	{
-		kill(philo[i].pid, SIGINT);
-		i++;
-	}
-}
-
-void	create_process(t_philo *philo)
-{
-	int	i;
-
-	i = 0;
-	while (i < philo->config->num_philos)
-	{
-		philo[i].pid = fork();
-		if (philo[i].pid == 0)
-			philo_threads(philo, i);
-		i++;
-	}
 }
 
 int	philo_life(t_philo *philo)
@@ -115,8 +37,6 @@ int	philo_life(t_philo *philo)
 	destroy_semaphores(philo->config);
 	return (1);
 }
-
-
 
 int	semaphores_init(t_config *config)
 {
@@ -167,8 +87,6 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	philo = malloc(sizeof(t_philo) * config.num_philos);
 	philo_life(philo);
-	// init_philo(philo, &config);
-	// start_threads(philo, &config);
 	free(philo);
 	return (EXIT_SUCCESS);
 }

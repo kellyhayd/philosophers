@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 23:15:13 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 23:34:27 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/21 23:51:13 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,12 @@ int	convert_nbr(char *str)
 		i++;
 	}
 	return (nbr);
+}
+
+void	destroy_semaphores(t_config *config)
+{
+	sem_close(config->fork);
+	sem_close(config->action);
+	sem_unlink("philo_forks");
+	sem_unlink("philo_action");
 }
