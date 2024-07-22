@@ -21,7 +21,8 @@ INCLUDE		:= -Iinclude/
 BUILD_DIR	:= build/
 SRC_PATH	= src/
 SRC			= $(addprefix $(SRC_PATH), \
-			main.c \
+			philo_bonus.c \
+			init_bonus.c \
 			actions_bonus.c \
 			process_bonus.c \
 			utils_bonus.c)

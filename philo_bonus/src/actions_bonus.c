@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 23:41:55 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 23:52:45 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/22 08:54:29 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	*check_life(void *args)
 		philo->config->dead_flag = 1;
 		sem_wait(philo->config->action);
 		printf("%u %d died\n", time_now, philo->id);
-		kill_process(philo);
 		destroy_semaphores(philo->config);
+		kill_process(philo);
 	}
 	return (NULL);
 }

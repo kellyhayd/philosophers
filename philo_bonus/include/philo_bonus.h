@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:57:16 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 23:52:27 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/22 08:39:08 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,8 @@ void	kill_process(t_philo *philo);
 void	create_process(t_philo *philo);
 void	destroy_semaphores(t_config *config);
 void	philo_threads(t_philo *philo, int id);
+void	config_init(t_config *config, char **argv);
+int		semaphores_init(t_config *config);
+void	philo_init(t_philo *philo, t_config *config);
 
 #endif
