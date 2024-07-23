@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 15:22:36 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 17:14:38 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:05:10 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,16 @@
 void	thinking(t_philo *philo)
 {
 	size_t	time_now;
+	size_t	to_think;
 
+	to_think = philo->config->to_die_ms - philo->config->to_eat_ms \
+		- philo->config->to_sleep_ms;
+	if (to_think > 5)
+		to_think = 5;
+	else if (to_think < 0)
+		to_think = 0;
 	print_message(philo, "is thinking", philo->id);
+	usleep(to_think * 1000);
 }
 
 void	sleeping(t_philo *philo)

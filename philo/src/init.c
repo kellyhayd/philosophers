@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 22:56:29 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 14:16:33 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:08:28 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_philo(t_philo *philos, t_config *config)
 		philos[i].meals_eaten = 0;
 		philos[i].last_meal = config->init_time;
 		philos[i].id = i + 1;
-		if (i == 0)
+		if (i % 2 == 0)
 		{
 			philos[i].l_fork = &config->forks[(i + 1) % config->num_philos];
 			philos[i].r_fork = &config->forks[i];

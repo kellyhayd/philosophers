@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 20:43:47 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/22 22:33:16 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:46:42 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_message(t_philo *philo, char *str, int id)
 	pthread_mutex_lock(&philo->config->write_lock);
 	time_now = get_current_time() - philo->config->init_time;
 	if (!dead_loop(philo))
-		printf("%u %d %s\n", time_now, philo->id, str);
+		printf("%zu %d %s\n", time_now, philo->id, str);
 	pthread_mutex_unlock(&philo->config->write_lock);
 }
 

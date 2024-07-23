@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 12:31:39 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 17:09:57 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:46:30 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_death(t_philo *philos, t_config *config)
 		{
 			pthread_mutex_lock(&config->write_lock);
 			time_now = get_current_time() - config->init_time;
-			printf("%u %d died\n", time_now, philos[i].id);
+			printf("%zu %d died\n", time_now, philos[i].id);
 			pthread_mutex_unlock(&config->write_lock);
 			return (1);
 		}
