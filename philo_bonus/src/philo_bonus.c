@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:45:10 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/23 00:03:31 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/23 00:16:04 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	philo_life(t_philo *philo)
 	int	i;
 	int	child_status;
 	
-	child_status = 99;
 	create_process(philo);
+	child_status = 0;
 	waitpid(-1, &child_status, 0);
 	kill_process(philo);
 	destroy_semaphores(philo->config);
