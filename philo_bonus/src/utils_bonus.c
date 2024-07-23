@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 23:15:13 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 23:51:13 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:37:56 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void	print_message(t_philo *philo, char *str, int id)
 
 	sem_wait(philo->config->action);
 	time_now = get_current_time() - philo->config->init_time;
-	if (!philo->config->dead_flag)
-		printf("%u %d %s\n", time_now, philo->id, str);
+	printf("%u %d %s\n", time_now, philo->id, str);
 	sem_post(philo->config->action);
 }
 

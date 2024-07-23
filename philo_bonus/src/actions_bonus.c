@@ -6,60 +6,52 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 23:41:55 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/22 08:54:29 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/23 00:01:02 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	eating(t_philo *philo)
+static int	check_life(t_philo *philo)
 {
-	sem_wait(philo->config->fork);
-	print_message(philo, "has taken a fork", philo->id);
-	sem_wait(philo->config->fork);
-	print_message(philo, "has taken a fork", philo->id);
-	print_message(philo, "is eating", philo->id);
-	philo->last_meal = get_current_time();
-	usleep(philo->config->to_eat_ms * 1000);
-	sem_post(philo->config->fork);
-	sem_post(philo->config->fork);
-	philo->meals_eaten++;
-}
+	size_t	time_now;
 
-void	sleeping(t_philo *philo)
-{
-	print_message(philo, "is thinking", philo->id);
-	usleep(philo->config->to_sleep_ms * 1000);
+	time_now = get_current_time();
+	if ((time_now - philo->last_meal) >= philo->config->to_die_ms)
+	{
+		sem_wait(philo->config->action);
+		printf("%u %d died\n", time_now, philo->id);
+		return (0);
+	}
+	return (1);
 }
 
 void	actions(t_philo *philo)
 {
-	while (!philo->config->dead_flag
-		&& (philo->meals_eaten < philo->config->must_eat_times))
+	int i ;
+
+	while (1)
 	{
-		eating(philo);
-		sleeping(philo);
+		// sem_wait(philo->config->fork);
+		// if (!check_life(philo))
+		// 	break ;
+		// print_message(philo, "has taken a fork", philo->id);
+		// sem_wait(philo->config->fork);
+		// if (!check_life(philo))
+		// 	break ;
+		// print_message(philo, "has taken a fork", philo->id);
+		// print_message(philo, "is eating", philo->id);
+		// philo->last_meal = get_current_time();
+		// // usleep(philo->config->to_eat_ms * 1000);
+		// sem_post(philo->config->fork);
+		// sem_post(philo->config->fork);
+		// philo->meals_eaten++;
+		// if (!check_life(philo))
+		// 	break ;	
+		// print_message(philo, "is sleeping", philo->id);
+		usleep(philo->config->to_sleep_ms * 1000);
+		// if (!check_life(philo))
+		// 	break ;
 		print_message(philo, "is thinking", philo->id);
 	}
-}
-
-void	*check_life(void *args)
-{
-	t_philo *philo;
-	philo = (t_philo *)args;
-	size_t	last_meal;
-	size_t	time_now;
-
-	last_meal = philo->last_meal;
-	time_now = get_current_time();
-	if ((time_now - last_meal) >= philo->config->to_die_ms
-		|| philo->config->dead_flag == 1)
-	{
-		philo->config->dead_flag = 1;
-		sem_wait(philo->config->action);
-		printf("%u %d died\n", time_now, philo->id);
-		destroy_semaphores(philo->config);
-		kill_process(philo);
-	}
-	return (NULL);
 }
