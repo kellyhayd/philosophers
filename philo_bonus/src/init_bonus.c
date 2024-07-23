@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 08:18:23 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/23 18:30:41 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:48:29 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,9 @@ int	semaphores_init(t_config *config)
 {
 	sem_unlink("philo_fork");
 	sem_unlink("philo_action");
-	sem_unlink("philo_meals");
 	config->fork = sem_open("philo_fork", O_CREAT, 0700, config->num_philos);
 	config->action = sem_open("philo_action", O_CREAT, 0700, 1);
-	config->meals = sem_open("philo_meals", O_CREAT, 0700, \
-		config->must_eat_times);
-	if (config->fork == SEM_FAILED || config->action == SEM_FAILED
-		|| config->meals == SEM_FAILED)
+	if (config->fork == SEM_FAILED || config->action == SEM_FAILED)
 	{
 		destroy_semaphores(config);
 		return (0);

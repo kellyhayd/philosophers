@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 23:41:55 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/23 18:22:11 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:56:03 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	thinking(t_philo *philo)
 
 void	actions(t_philo *philo)
 {
-	while (1)
+	while (philo->meals_eaten < philo->config->must_eat_times
+		|| philo->config->must_eat_times == -1)
 	{
 		sem_wait(philo->config->fork);
 		if (!check_life(philo))
