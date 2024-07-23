@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:45:10 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/23 00:16:04 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:26:00 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	philo_life(t_philo *philo)
 {
 	int	i;
 	int	child_status;
-	
+
+	thread_start(philo);
 	create_process(philo);
 	child_status = 0;
 	waitpid(-1, &child_status, 0);

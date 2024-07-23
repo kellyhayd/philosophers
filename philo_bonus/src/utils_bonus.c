@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 23:15:13 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/22 23:37:56 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:20:13 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_message(t_philo *philo, char *str, int id)
 
 	sem_wait(philo->config->action);
 	time_now = get_current_time() - philo->config->init_time;
-	printf("%u %d %s\n", time_now, philo->id, str);
+	printf("%zu %d %s\n", time_now, philo->id, str);
 	sem_post(philo->config->action);
 }
 
@@ -47,6 +47,8 @@ int	convert_nbr(char *str)
 		nbr = (nbr * 10) + (str[i] - '0');
 		i++;
 	}
+	if (nbr <= 0)
+		return (-1);
 	return (nbr);
 }
 
