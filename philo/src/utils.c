@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 20:43:47 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/21 16:31:12 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/22 22:33:16 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,7 @@ int	convert_nbr(char *str)
 		nbr = (nbr * 10) + (str[i] - '0');
 		i++;
 	}
+	if (nbr == 0)
+		return (-1);
 	return (nbr);
 }
