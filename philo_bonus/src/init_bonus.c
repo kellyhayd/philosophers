@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 08:18:23 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/22 08:42:35 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/23 00:14:43 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	philo_init(t_philo *philo, t_config *config)
 		philo[i].id = i + 1;
 		philo[i].meals_eaten = 0;
 		philo[i].last_meal = get_current_time();
-		philo->config = config;
+		philo[i].config = config;
 		i++;
 	}
 	
