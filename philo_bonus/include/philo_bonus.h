@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:57:16 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/23 18:34:00 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:16:31 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_config
 	int			dead_flag;
 	sem_t		*fork;
 	sem_t		*action;
-	sem_t		*meals;
+	sem_t		*room;
 }	t_config;
 
 typedef struct s_philo

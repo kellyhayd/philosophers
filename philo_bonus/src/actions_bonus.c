@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 23:41:55 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/07/23 18:56:03 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:47:09 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	actions(t_philo *philo)
 	while (philo->meals_eaten < philo->config->must_eat_times
 		|| philo->config->must_eat_times == -1)
 	{
+		sem_wait(philo->config->room);
 		sem_wait(philo->config->fork);
 		if (!check_life(philo))
 			break ;
@@ -65,7 +66,8 @@ void	actions(t_philo *philo)
 		print_message(philo, "is sleeping", philo->id);
 		usleep(philo->config->to_sleep_ms * 1000);
 		if (!check_life(philo))
-			break ;
+			break ; 
 		thinking(philo);
+		sem_post(philo->config->room);
 	}
 }

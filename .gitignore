@@ -399,3 +399,6 @@ FodyWeavers.xsd
 *.sln.iml
 build/src/philo.o
 build/*
+philo_bonus/philo_bonus
+.vscode/settings.json
+philo/philo
